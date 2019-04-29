@@ -3,7 +3,7 @@
 Requirements:
 - docker-compose installed
 
-**How to build?*
+**How to build?**
 * run `build.sh`
 
 **You can switch between two modes SQL\noSQL**
