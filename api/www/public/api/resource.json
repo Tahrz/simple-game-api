@@ -1,0 +1,108 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Test task API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/monster/list": {
+            "get": {
+                "tags": [
+                    "Monsters"
+                ],
+                "summary": "Return monster list",
+                "operationId": "monster-list",
+                "responses": {
+                    "200": {
+                        "description": "Successful request"
+                    }
+                }
+            }
+        },
+        "/player/open-monster": {
+            "get": {
+                "tags": [
+                    "Players"
+                ],
+                "summary": "Open monster",
+                "operationId": "player-open-monster",
+                "parameters": [
+                    {
+                        "name": "userName",
+                        "in": "query",
+                        "description": "username (login)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "monsterId",
+                        "in": "query",
+                        "description": "monster id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful request"
+                    },
+                    "404": {
+                        "description": "Player or monster not found"
+                    },
+                    "422": {
+                        "description": "Required parameter not found"
+                    }
+                }
+            }
+        },
+        "/player/list": {
+            "get": {
+                "tags": [
+                    "Players"
+                ],
+                "summary": "Return player list",
+                "operationId": "player-list",
+                "responses": {
+                    "200": {
+                        "description": "Successful request"
+                    }
+                }
+            }
+        },
+        "/player/show-opened-monsters": {
+            "get": {
+                "tags": [
+                    "Players"
+                ],
+                "summary": "Show opened monsters",
+                "operationId": "player-show-opened-monsters",
+                "parameters": [
+                    {
+                        "name": "userName",
+                        "in": "query",
+                        "description": "username (login)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful request"
+                    },
+                    "404": {
+                        "description": "Player not found"
+                    },
+                    "422": {
+                        "description": "Required parameter not found"
+                    }
+                }
+            }
+        }
+    }
+}

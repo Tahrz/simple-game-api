@@ -1,0 +1,22 @@
+{
+    "require": {
+        "pecee/simple-router": "4.2.0.6",
+        "mongodb/mongodb": "^1.4",
+        "zircote/swagger-php": "^3.0",
+        "swagger-api/swagger-ui": "^3.22"
+    },
+    "autoload": {
+        "psr-4": {
+            "Application\\": "src/Application/",
+            "Domain\\": "src/Domain/",
+            "Infrastructure\\": "src/Infrastructure/",
+            "Utility\\": "utility/src/",
+            "Tests\\" : "tests"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.2",
+        "phpunit/phpunit": "^7",
+        "fzaninotto/faker": "^1.8"
+    }
+}

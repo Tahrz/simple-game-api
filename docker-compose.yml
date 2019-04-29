@@ -1,0 +1,86 @@
+version: '2'
+services:
+  nginx:
+    container_name: heatherglade_test_task_nginx
+    build: ./docker/nginx
+    restart: always
+    volumes:
+      - ./api/www:/api/www
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/log:/var/log/nginx
+    links:
+      - php
+      - php-cli
+      - mongo
+      - postgres
+    networks:
+      heatherglade_test_task_api:
+        ipv4_address: 192.168.11.101
+
+  php:
+    container_name: heatherglade_test_task_php
+    build: ./docker/php
+    restart: always
+    volumes:
+      - ./api/www:/api/www
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./docker/php/php-fpm.conf:/usr/local/etc/php-fpm.d/php-fpm.conf
+      - ./docker/php/log:/var/log/php
+    links:
+      - mongo
+      - postgres
+    networks:
+      heatherglade_test_task_api:
+        ipv4_address: 192.168.11.118
+
+  php-cli:
+    container_name: heatherglade_test_task_php_cli
+    build: ./docker/php-cli
+    command: top -b
+    working_dir: /api/www
+    volumes:
+      - ./api/www:/api/www
+      - ./docker/php-cli/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./docker/php/log:/var/log/php
+    links:
+      - mongo
+      - postgres
+    networks:
+      heatherglade_test_task_api:
+        ipv4_address: 192.168.11.119
+
+  postgres:
+      container_name: heatherglade_test_task_postgre
+      image: 'postgres'
+      restart: always
+      ports:
+        - "5432:5432"
+      environment:
+        POSTGRES_DB: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_USER: postgres
+      volumes:
+        - ./api/www/data/sql:/data
+      networks:
+        heatherglade_test_task_api:
+          ipv4_address: 192.168.11.135
+
+  mongo:
+    container_name: heatherglade_test_task_mongo
+    image: 'mongo:latest'
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./api/www/data/noSql:/data
+    networks:
+      heatherglade_test_task_api:
+        ipv4_address: 192.168.11.137
+
+networks:
+  heatherglade_test_task_api:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.11.0/24
+          gateway: 192.168.11.1
